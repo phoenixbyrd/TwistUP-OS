@@ -56,9 +56,25 @@ patch2dash() {
   echo "$1" | tr '.' '-'
 }
 
+check_aria2c() {
+  #check if aria2c exists and install if not present
+  if ! command -v aria2c ; then
+    echo -e "\e[91mWarning: aria2c not found, installing it.\e[39m"
+    sudo apt get install aria2 
+    if command -v aria2c ; then
+      echo "aria2c successfully installed."
+      dlutil="aria2c -x16 -j${nproc} -o"
+    else 
+      echo "\e[91mWarning: Failed to install aria2c using wget instead.\e[39m"
+      dlutil="wget -O"
+    fi
+  fi
+}
+
 update() {
   #
-  
+  check_aria2c
+  #
   #what line in the text file is the current local patch version?
   nextpatchnumber="$(echo "$patchlist" | grep -nx "$localversion" | cut -f1 -d:)"
   if [ -z "$nextpatchnumber" ];then
@@ -118,7 +134,7 @@ update() {
   if [[ "$URL" = *.run ]];then
     echo "Patch is in .run format."
     rm -f ./patch.run 2>/dev/null
-    script="wget "\""$URL"\"" -O $(pwd)/patch.run
+    script="${dlutil} $(pwd)/patch.run "\""$URL"\""
       chmod +x $(pwd)/patch.run
       $(pwd)/patch.run --noexec --target $(pwd)/patch
       cat $(pwd)/patch/*patchinstall.sh | grep -vE ' reboot| restart|clear' > $(pwd)/patch/twistup-patchinstall.sh
@@ -130,7 +146,7 @@ update() {
     echo "Patch is in .zip format."
     rm -f ./*patchinstall.sh 2>/dev/null
     rm -rf ./patch 2>/dev/null
-    script="wget "\""$URL"\"" -O $(pwd)/patch.zip
+    script="${dlutil} $(pwd)/patch.zip "\""$URL"\"" 
       unzip $(pwd)/patch.zip
       rm $(pwd)/patch.zip
       chmod +x $(pwd)/*patchinstall.sh
