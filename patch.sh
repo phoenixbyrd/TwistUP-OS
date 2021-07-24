@@ -1,6 +1,5 @@
 #!/bin/bash
 
-#test
 # list of patch versions: https://twisteros.com/Patches/latest.txt
 # version checker: https://twisteros.com/Patches/checkversion.sh
 # simple bash updater script: https://github.com/setLillie/Twister-OS-Patcher/blob/master/patch.sh
@@ -10,9 +9,6 @@
 #example patch url: https://twisteros.com/Patches/TwisterOSv1-9-1Patch.zip
 
 #twistver format: "Twister OS version 1.8.5"
-
-#pull updates.
-git pull
 
 DIRECTORY="$(dirname "$(readlink -f "$0")")"
 echo "$DIRECTORY"
