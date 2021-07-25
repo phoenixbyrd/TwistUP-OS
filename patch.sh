@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Hello Tommy21
+
 # list of patch versions: https://twisteros.com/Patches/latest.txt
 # version checker: https://twisteros.com/Patches/checkversion.sh
 # simple bash updater script: https://github.com/setLillie/Twister-OS-Patcher/blob/master/patch.sh
