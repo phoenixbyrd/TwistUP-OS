@@ -1,6 +1,5 @@
 # TwistUP
 ## The new, simple Twister OS patcher
-AKA TwisterOS Patcher 2.0!
 ![](https://media.discordapp.net/attachments/738534235194916884/759921733825462322/TwisterOSPatcherLogo.png?width=960&height=186)  
 
 ## To download to ~/TwistUP 
